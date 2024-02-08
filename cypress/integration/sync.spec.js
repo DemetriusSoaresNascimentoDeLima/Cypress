@@ -54,4 +54,11 @@ describe('Esperas...', () => {
         cy.get('#lista li span')
             .should('have.length', 2)
     })
+
+    it.only('CLick retry', () => {
+        cy.get('#buttonCount')
+            .click()
+            .click()
+            .should('have.value', '111')
+    })
 })
