@@ -7,12 +7,21 @@ describe('Work with iFrames', () => {
             const body = iframe.contents().find('body')
             cy.wrap(body).find('#tfield')
                 .type('funciona?')
-                .should('have.valeu', 'funciona?')
+                .should('have.value', 'funciona?')
 
             cy.on('window:alert', msg => {
                 expect(msg).to.be.equal('Alert Simples')
             })
-            cy.wrap(body).find('#otherButton').click()
+            // cy.wrap(body).find('#otherButton').click()
+        })
+
+    })
+
+    it('Deve testar frame diretamente', () => {
+        cy.visit('https://wcaquino.me/cypress/frame.html')
+        cy.get('#otherButton').click()
+        cy.on('window:alert', msg => {
+            expect(msg).to.be.equal('Click OK!')
         })
 
     })
