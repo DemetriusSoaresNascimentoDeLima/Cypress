@@ -4,11 +4,13 @@ import loc from '../../support/locators'
 
 describe('Should test at a function level', () => {
     before(() => {
-        cy.visit('https://barrigareact.wcaquino.me/')
-        cy.get(loc.LOGIN.USER).type('test@cypress')
-        cy.get(loc.LOGIN.PASSWORD).type('123456')
-        cy.get(loc.LOGIN.BTN_LOGIN).click()
-        cy.get(loc.MESSAGE).should('contain', 'Bem vindo')
+        cy.login('test@cypress', '123456')
+        cy.resetApp()
+        // cy.visit('https://barrigareact.wcaquino.me/')
+        // cy.get(loc.LOGIN.USER).type('test@cypress')
+        // cy.get(loc.LOGIN.PASSWORD).type('123456')
+        // cy.get(loc.LOGIN.BTN_LOGIN).click()
+        // cy.get(loc.MESSAGE).should('contain', 'Bem vindo')
     })
 
     it('Should create an account', () => {
