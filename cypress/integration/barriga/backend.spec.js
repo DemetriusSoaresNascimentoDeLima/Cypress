@@ -4,7 +4,7 @@ describe('Should test at a function level', () => {
     before(() => {
         // cy.login('test@cypress', '123456')
     })
-    
+
     beforeEach(() => {
         // cy.get(loc.MENU.HOME).click()
         // cy.resetApp()
@@ -19,26 +19,42 @@ describe('Should test at a function level', () => {
                 redirecionar: false,
                 senha: "123456"
             }
-        }).then(res => console.log(res))
+        }).its('body.token').should('not.be.empty')
+            .then(token => {
+                cy.request({
+                    method: 'POST',
+                    headers: { Authorization: `JWT ${token}`},
+                    url: 'https://barrigarest.wcaquino.me/contas',
+                    body: {
+                        nome: "Conta via rest"
+                    }
+                }).as('response')
+            })
+
+        cy.get('@response').then(res => {
+            expect(res.status).to.be.equal(201)
+            expect(res.body).to.have.property('id')
+            expect(res.body).to.have.property('nome', 'Conta via rest')
+        })
     })
 
     it('Should update an account', () => {
-        
+
     })
 
     it('Should not create an account with same name', () => {
-        
+
     })
 
     it('Should create a transaction', () => {
-        
+
     })
 
     it('Should get balance', () => {
-        
+
     })
 
     it('Should remove a transaction', () => {
-        
+
     })
 })
