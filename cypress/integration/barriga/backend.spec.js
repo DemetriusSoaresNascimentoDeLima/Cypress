@@ -4,22 +4,21 @@ describe('Should test at a function level', () => {
     let token
 
     before(() => {
-        cy.login('test@cypress', '123456')
+        cy.getToken('test@cypress', '123456')
             .then(tkn => {
                 token = tkn
             })
     })
 
     beforeEach(() => {
-        // cy.get(loc.MENU.HOME).click()
-        // cy.resetApp()
+        cy.resetRest()
     })
 
     it('Should create an account', () => {
         cy.request({
+            url: '/contas',
             method: 'POST',
             headers: { Authorization: `JWT ${token}` },
-            url: 'https://barrigarest.wcaquino.me/contas',
             body: {
                 nome: "Conta via rest"
             }
